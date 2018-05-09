@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import longArrowAltUp from '@fortawesome/fontawesome-free-solid/faLongArrowAltUp'
+import longArrowAltDown from '@fortawesome/fontawesome-free-solid/faLongArrowAltDown'
+
 const propTypes = {
   sortKey: PropTypes.string.isRequired,
   name: PropTypes.node.isRequired,
@@ -31,8 +35,8 @@ class SortableHeader extends Component {
         <span style={{ marginRight: '5px' }}>
           {name}
         </span>
-        {sorted === 'asc' && <i className="fa fa-long-arrow-up" />}
-        {sorted === 'desc' && <i className="fa fa-long-arrow-down" />}
+        {sorted === 'asc' && <FontAwesomeIcon icon={longArrowAltUp} />}
+        {sorted === 'desc' && <FontAwesomeIcon icon={longArrowAltDown} />}
         {sorted === null && <i
           className="fa fa-arrows-v"
           style={{ color: '#ccc' }}
