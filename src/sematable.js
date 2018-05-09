@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+
+import includes from 'lodash-es/includes';
+import keyBy from 'lodash-es/keyBy';
+import some from 'lodash-es/some';
+import mapValues from 'lodash-es/mapValues';
+
 import Filter from './Filter.js';
 import Pagination from './Pagination.js';
 import PageSize from './PageSize.js';
@@ -158,7 +163,7 @@ const sematable = (tableName, TableComponent, columns, configs = {}) => {
         return (<div />);
       }
 
-      const isSelected = (row) => _.includes(selectedRows, row);
+      const isSelected = (row) => includes(selectedRows, row);
 
       const select = {
         onRowCheckedChange,
@@ -168,9 +173,9 @@ const sematable = (tableName, TableComponent, columns, configs = {}) => {
         selectedRows,
       };
 
-      const columnMap = _.keyBy(columns, 'key');
-      const hasFilterable = _.some(columns, 'filterable');
-      const columnHeaders = _.mapValues(columnMap, (value, key) => ({
+      const columnMap = keyBy(columns, 'key');
+      const hasFilterable = some(columns, 'filterable');
+      const columnHeaders = mapValues(columnMap, (value, key) => ({
         sorted: key === sortInfo.sortKey ? sortInfo.direction : null,
         sortKey: key,
         primaryKey: value.primaryKey,

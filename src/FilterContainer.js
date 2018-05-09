@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import some from 'lodash-es/some';
 import {
   tableFilterChanged,
   tableFilterTextChanged,
@@ -36,7 +36,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
   isInitialized,
   ...otherProps
 }) => {
-  const hasFilterable = _.some(columns, 'filterable');
+  const hasFilterable = some(columns, 'filterable');
   if (!isInitialized) { return null; }
   return <Filter {...otherProps} hasFilterable={hasFilterable} />;
 });

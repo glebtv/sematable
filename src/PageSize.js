@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import _ from 'lodash';
+import map from 'lodash-es/map';
 
 const propTypes = {
   pageSize: PropTypes.number.isRequired,
@@ -40,7 +40,7 @@ class PageSize extends Component {
           style={selectStyle}
         >
           {
-            _.map(pageSizes, (size, i) => (
+            map(pageSizes, (size, i) => (
               <option
                 value={size}
                 key={i}

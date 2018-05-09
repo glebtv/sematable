@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import _ from 'lodash';
+import get from 'lodash-es/get';
 import SortableHeader from './SortableHeader';
 import SelectAllHeader from './SelectAllHeader';
 import TableRow from './TableRow';
@@ -73,7 +73,7 @@ class Table extends Component {
         </thead>
         <tbody>
           {data.map((row) => (
-            <TableRow key={_.get(row, primaryKey)} {...this.props} row={row} />
+            <TableRow key={get(row, primaryKey)} {...this.props} row={row} />
           ))}
           {!data.length &&
             <tr>

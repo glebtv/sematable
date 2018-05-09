@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import _ from 'lodash';
+import times from 'lodash-es/times';
 
 const propTypes = {
   page: PropTypes.number.isRequired,
@@ -46,7 +46,7 @@ class Pagination extends Component {
                 <span className="sr-only">Previous</span>
               </a>
             </li>
-            {_.times(pageCount, (idx) => (
+            {times(pageCount, (idx) => (
               <li key={idx} className={`page-item ${idx === page ? 'active' : ''}`}>
                 <a
                   href="#next"

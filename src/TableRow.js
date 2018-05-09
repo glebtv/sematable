@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import _ from 'lodash';
+
+import isFunction from 'lodash-es/isFunction';
+import isObject from 'lodash-es/isObject';
+import get from 'lodash-es/get';
+
 import SelectRow from './SelectRow';
 
 const propTypes = {
@@ -15,9 +19,9 @@ const propTypes = {
 const resolveProps = (row, componentProps, tableProps) => {
   if (!componentProps) {
     return {};
-  } else if (_.isFunction(componentProps)) {
+  } else if (isFunction(componentProps)) {
     return componentProps(row, tableProps);
-  } else if (_.isObject(componentProps)) {
+  } else if (isObject(componentProps)) {
     return componentProps;
   }
   throw new Error('componentProps should be object or function!');
@@ -61,8 +65,8 @@ class TableRow extends Component {
                 key={col.key}
                 {...resolveProps(row, col.componentProps, otherProps)}
               >
-                {_.get(row, col.key)}
-              </col.Component> : _.get(row, col.key)
+                {get(row, col.key)}
+              </col.Component> : get(row, col.key)
             }
           </td>
         )}

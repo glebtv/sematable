@@ -1,4 +1,10 @@
-import _ from 'lodash';
+import isString from 'lodash-es/isString';
+import find from 'lodash-es/find';
+import keyBy from 'lodash-es/keyBy';
+import indexOf from 'lodash-es/indexOf';
+import get from 'lodash-es/get';
+import has from 'lodash-es/has';
+
 import { handleActions } from 'redux-actions';
 import {
   TABLE_INITIALIZE,
@@ -31,7 +37,7 @@ const defaultState = (configs = {}) => ({
 });
 
 const filterValueToFilter = (filterValue = [], columnMap) => filterValue.map(f => {
-  if (_.isString(f)) {
+  if (isString(f)) {
     return createTextFilter(f);
   }
   const column = columnMap[f.key];
@@ -45,8 +51,8 @@ const behaviours = {
       ...state,
       ...payload,
     };
-    const primaryKeyCol = _.find(nextState.columns, 'primaryKey');
-    const columnMap = _.keyBy(nextState.columns, 'key');
+    const primaryKeyCol = find(nextState.columns, 'primaryKey');
+    const columnMap = keyBy(nextState.columns, 'key');
     const filter = payload.filterValue ?
       filterValueToFilter(payload.filterValue, columnMap) :
       nextState.filter;
@@ -68,7 +74,7 @@ const behaviours = {
     initialData: payload.data,
   }),
   [TABLE_SET_FILTER]: (state, { payload }) => {
-    const columnMap = _.keyBy(state.columns, 'key');
+    const columnMap = keyBy(state.columns, 'key');
     const filter = filterValueToFilter(payload.filterValue, columnMap);
     return {
       ...state,
@@ -120,7 +126,7 @@ const behaviours = {
       primaryKey,
     } = state;
     const { row } = payload;
-    const idx = _.indexOf(userSelection, _.get(row, primaryKey));
+    const idx = indexOf(userSelection, get(row, primaryKey));
 
     if (idx !== -1) {
       return {
@@ -135,7 +141,7 @@ const behaviours = {
       ...state,
       userSelection: [
         ...userSelection,
-        _.get(row, primaryKey),
+        get(row, primaryKey),
       ],
     };
   },
@@ -158,7 +164,7 @@ export default (state, action) => {
     return {};
   }
 
-  if (_.has(behaviours, action.type)) {
+  if (has(behaviours, action.type)) {
     const { tableName } = action.payload;
     return {
       ...state,

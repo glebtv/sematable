@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isBoolean from 'lodash-es/isBoolean';
 
 export const createTextFilter = (text) => ({
   value: text.toLowerCase(),
@@ -14,7 +14,7 @@ export const createValueFilter = (column, value) => {
     getFilterClassName = () => undefined,
     getFilterLabel = () => {
       let labelValue = value;
-      if (_.isBoolean(value)) {
+      if (isBoolean(value)) {
         labelValue = value ? 'Yes' : 'No';
       }
       return `${column.header}:${labelValue}`;
