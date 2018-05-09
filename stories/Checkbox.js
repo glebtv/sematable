@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-require('./Checkbox.css');
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import './Checkbox.css';
 
 const propTypes = {
   onChange: PropTypes.func,

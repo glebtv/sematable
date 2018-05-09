@@ -1,10 +1,9 @@
-import { configure } from '@kadira/storybook';
-import '../node_modules/font-awesome/css/font-awesome.css';
-import 'bootstrapCss';
-import '../node_modules/react-select/dist/react-select.min.css';
+import { configure } from '@storybook/react';
 
+// automatically import all files ending in *.stories.js
+const req = require.context('../stories', true, /.stories.js$/);
 function loadStories() {
-  require('../stories');
+  req.keys().forEach(filename => req(filename));
 }
 
 configure(loadStories, module);

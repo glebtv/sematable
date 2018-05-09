@@ -1,8 +1,7 @@
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 import StoryDefault from './default/StoryDefault';
 import StorySelectable from './default/StorySelectable';
 import StoryEditable from './editable/StoryEditable';
-import StoryButton from './button/StoryButton';
 
 
 /*
@@ -15,4 +14,3 @@ storiesOf('Sematable', module)
   .add('Default', StoryDefault)
   .add('Selectable', StorySelectable)
   .add('Editable', StoryEditable)
-  .add('Button', StoryButton);

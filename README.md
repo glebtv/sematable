@@ -59,7 +59,8 @@ the [section about selectors](#selectors).
 
 AppsTable.js:
 ```javascript
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import sematable, { Table } from 'sematable';
 import AppsTableActions from './AppsTableActions';
 
@@ -96,7 +97,8 @@ export default sematable('allApps', AppsTable, columns);
 
 AppsTableActions.js:
 ```javascript
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 const propTypes = {
@@ -208,7 +210,8 @@ provided Table component.
 
 AppsTable.js:
 ```javascript
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import sematable, {
   SortableHeader,

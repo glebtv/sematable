@@ -4,7 +4,7 @@ import some from 'lodash-es/some';
 import {
   tableFilterChanged,
   tableFilterTextChanged,
-} from './actions.js';
+} from './actions';
 import makeSelectors from './selectors';
 import Filter from './Filter';
 

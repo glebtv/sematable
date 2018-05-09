@@ -7,10 +7,10 @@ import keyBy from 'lodash-es/keyBy';
 import some from 'lodash-es/some';
 import mapValues from 'lodash-es/mapValues';
 
-import Filter from './Filter.js';
-import Pagination from './Pagination.js';
-import PageSize from './PageSize.js';
-import makeSelectors from './selectors.js';
+import Filter from './Filter';
+import Pagination from './Pagination';
+import PageSize from './PageSize';
+import makeSelectors from './selectors';
 import {
   tableInitialize,
   tableNewData,
@@ -22,7 +22,7 @@ import {
   tableRowCheckedChanged,
   tableSelectAllChanged,
   tableSetFilter,
-} from './actions.js';
+} from './actions';
 
 const propTypes = {
   data: PropTypes.array,

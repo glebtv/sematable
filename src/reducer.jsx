@@ -18,7 +18,7 @@ import {
   TABLE_ROW_CHECKED_CHANGED,
   TABLE_DESTROY_STATE,
   TABLE_SET_FILTER,
-} from './actions.js';
+} from './actions';
 import { createTextFilter, createValueFilter } from './common';
 
 import { PAGE_SIZE_ALL_VALUE } from './PageSize';

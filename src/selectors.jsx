@@ -1,6 +1,17 @@
 import { createSelector } from 'reselect';
 import { createValueFilter } from './common';
 
+import includes from "lodash-es/includes";
+import lfilter from "lodash-es/filter";
+import reject from "lodash-es/reject";
+import keyBy from "lodash-es/keyBy";
+import some from "lodash-es/some";
+import every from "lodash-es/every";
+import get from "lodash-es/get";
+import groupBy from "lodash-es/groupBy";
+import forOwn from "lodash-es/forOwn";
+import isEmpty from "lodash-es/isEmpty";
+
 import { PAGE_SIZE_ALL_VALUE } from './PageSize';
 
 function paginate(rows, { page, pageSize }) {
@@ -28,28 +39,28 @@ function filter(rows = [], filters = [], filterText, columns) {
     ...filters.filter(f => f.textFilter).map(f => f.value),
   ];
 
-  const valueFilters = filters.filter(f => f.valueFilter);
+  const valueFilters = lfilter(filters, f => f.valueFilter);
 
   // apply text filters across all columns
   if (textFilters.length > 0) {
-    filteredRows = _.filter(rows, row => _.some(columns, (column) => {
+    filteredRows = lfilter(rows, row => some(columns, (column) => {
       if (!column.searchable) {
         return false;
       }
-      const normalized = String(_.get(row, column.key)).toLowerCase();
-      return _.every(textFilters, f => normalized.indexOf(f) > -1);
+      const normalized = String(get(row, column.key)).toLowerCase();
+      return every(textFilters, f => normalized.indexOf(f) > -1);
     }));
   }
 
   // apply value filters on filterable columns
   if (valueFilters.length > 0) {
-    const groups = _.groupBy(valueFilters, 'key');
-    filteredRows = _.filter(filteredRows, row => _.every(
+    const groups = groupBy(valueFilters, 'key');
+    filteredRows = lfilter(filteredRows, row => every(
       groups,
       (groupFilters, groupKey) => {
-        const value = _.get(row, groupKey);
-        return _.some(groupFilters, f => f.value === value);
-      }
+        const value = get(row, groupKey);
+        return some(groupFilters, f => f.value === value);
+      },
     ));
   }
 
@@ -64,8 +75,8 @@ function sort(rows, { sortKey, direction }) {
 
   return cloned.sort((a, b) => {
     let sortVal = 0;
-    const valueA = _.get(a, sortKey);
-    const valueB = _.get(b, sortKey);
+    const valueA = get(a, sortKey);
+    const valueB = get(b, sortKey);
 
     if (valueA > valueB || valueB === undefined) {
       sortVal = 1;
@@ -92,7 +103,7 @@ export default (tableName) => {
   }
 
   const tableProp = (state, prop) => state.sematable[tableName] ?
-    _.get(state.sematable[tableName], prop) : undefined;
+    get(state.sematable[tableName], prop) : undefined;
 
   const getIsInitialized = (state) => state.sematable[tableName] !== undefined;
   const getInitialData = (state) => tableProp(state, 'initialData');
@@ -126,18 +137,18 @@ export default (tableName) => {
     getColumns,
     (initialData, columns) => {
       const options = [];
-      const columnMap = _.keyBy(columns, 'key');
+      const columnMap = keyBy(columns, 'key');
       const values = {};
 
       // set predefined values
-      columns.forEach(column => {
+      columns.forEach((column) => {
         if (column.filterable && column.filterValues) {
           values[column.key] = column.filterValues;
         }
       });
 
       // collect values for columns that don't have predefined values
-      initialData.forEach(row => {
+      initialData.forEach((row) => {
         columns.forEach(column => {
           if (!column.filterable || column.filterValues) {
             return;
@@ -146,22 +157,22 @@ export default (tableName) => {
             values[column.key] = [];
           }
           const columnValues = values[column.key];
-          const value = _.get(row, column.key);
+          const value = get(row, column.key);
           if (!columnValues.includes(value)) {
             columnValues.push(value);
           }
         });
       });
 
-      _.forOwn(values, (columnValues, key) => {
-        columnValues.forEach(value => {
+      forOwn(values, (columnValues, key) => {
+        columnValues.forEach((value) => {
           const column = columnMap[key];
           options.push(createValueFilter(column, value));
         });
       });
 
       return options;
-    }
+    },
   );
 
   const getPageInfo = createSelector(
@@ -216,23 +227,23 @@ export default (tableName) => {
     getPrimaryKey,
     getSelectEnabled,
     (filtered, columns, userSelection, selectAll, primaryKey, selectEnabled) => {
-      const includesKey = (row) => _.includes(userSelection, _.get(row, primaryKey));
+      const includesKey = (row) => includes(userSelection, get(row, primaryKey));
 
       if (selectAll) {
         let selectable = filtered;
         // if not all rows are selectable, apply selectEnabled function to filter selectable
         if (selectEnabled) {
-          selectable = _.filter(selectable, selectEnabled);
+          selectable = lfilter(selectable, selectEnabled);
         }
-        if (_.isEmpty(userSelection)) {
+        if (isEmpty(userSelection)) {
           return selectable;
         }
         // when select all is enabled, userSelection acts as "not selected" rows
-        return _.reject(selectable, includesKey);
+        return reject(selectable, includesKey);
       }
 
       // when select all is not enabled, userSelection acts as "selected" rows
-      return _.filter(filtered, includesKey);
+      return lfilter(filtered, includesKey);
     }
   );
 
