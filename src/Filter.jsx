@@ -51,7 +51,7 @@ class Filter extends Component {
         onCloseResetsInput={false}
         newOptionCreator={({ label }) => createTextFilter(label)}
         value={value}
-        multi
+        isMulti
         style={style}
       />
     );

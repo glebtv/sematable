@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import { createValueFilter } from './common';
 
+import map from "lodash-es/map";
+import property from "lodash-es/property";
 import includes from "lodash-es/includes";
 import lfilter from "lodash-es/filter";
 import reject from "lodash-es/reject";
@@ -33,6 +35,8 @@ function filter(rows = [], filters = [], filterText, columns) {
   if (filters.length === 0 && !filterText) {
     return filteredRows;
   }
+
+  console.log(filters)
 
   const textFilters = [
     ...(filterText ? [filterText.toLowerCase()] : []),
