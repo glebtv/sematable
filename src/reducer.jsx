@@ -23,18 +23,22 @@ import { createTextFilter, createValueFilter } from './common';
 
 import { PAGE_SIZE_ALL_VALUE } from './PageSize';
 
-const defaultState = (configs = {}) => ({
-  page: 0,
-  pageSize: configs.defaultPageSize || 5,
-  pageSizes: configs.defaultPageSizes || [5, 10, 15, 20, 50, 100, PAGE_SIZE_ALL_VALUE],
-  filter: [],
-  filterText: null,
-  sortKey: configs.sortKey,
-  direction: configs.sortDirection || 'asc',
-  selectAll: false,
-  userSelection: [],
-  configs,
-});
+const defaultState = (configs = {}) => {
+  return {
+    page: 0,
+    pageSize: configs.defaultPageSize || 5,
+    pageSizes: configs.defaultPageSizes || [5, 10, 15, 20, 50, 100, PAGE_SIZE_ALL_VALUE],
+    filter: [],
+    filterText: null,
+    sortKey: configs.sortKey,
+    direction: configs.sortDirection || 'asc',
+    selectAll: false,
+    userSelection: [],
+    configs,
+  };
+}
+  
+
 
 const filterValueToFilter = (filterValue = [], columnMap) => filterValue.map(f => {
   if (isString(f)) {
@@ -157,7 +161,7 @@ const behaviours = {
   },
 };
 
-const tableReducer = handleActions(behaviours, defaultState());
+const tableReducer = handleActions(behaviours, {});
 
 export default (state, action) => {
   if (!state) {

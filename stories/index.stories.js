@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import StoryDefault from './default/StoryDefault';
 import StoryMinimal from './default/StoryMinimal';
+import StoryPageSize from './default/StoryPageSize';
 import StorySelectable from './default/StorySelectable';
 import StoryEditable from './editable/StoryEditable';
 
@@ -14,5 +15,6 @@ import StoryEditable from './editable/StoryEditable';
 storiesOf('Sematable', module)
   .add('Default', StoryDefault)
   .add('Minimal', StoryMinimal)
+  .add('PageSize', StoryPageSize)
   .add('Selectable', StorySelectable)
   .add('Editable', StoryEditable)
