@@ -72,6 +72,8 @@
   "dependencies": {
     "@fortawesome/fontawesome-free-solid": "^5.0.12",
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/free-solid-svg-icons": "^5.1.0",
+    "@fortawesome/react-fontawesome": "^0.1.0",
     "lodash-es": "^4.17.10",
     "prop-types": "^15.6.1",
     "react-select": "^2.0.0",
@@ -79,8 +81,6 @@
     "reselect": "^3.0.1"
   },
   "devDependencies": {
-    "@fortawesome/free-solid-svg-icons": "^5.1.0",
-    "@fortawesome/react-fontawesome": "^0.1.0",
     "@storybook/addon-actions": "^3.4.3",
     "@storybook/addon-links": "^3.4.3",
     "@storybook/addons": "^3.4.3",
