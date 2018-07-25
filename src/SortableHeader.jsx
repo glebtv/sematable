@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import longArrowAltUp from '@fortawesome/fontawesome-free-solid/faLongArrowAltUp'
-import longArrowAltDown from '@fortawesome/fontawesome-free-solid/faLongArrowAltDown'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLongArrowAltUp as longArrowAltUp } from '@fortawesome/free-solid-svg-icons/faLongArrowAltUp'
+import { faLongArrowAltDown as longArrowAltDown } from '@fortawesome/free-solid-svg-icons/faLongArrowAltDown'
 
 const propTypes = {
   sortKey: PropTypes.string.isRequired,
